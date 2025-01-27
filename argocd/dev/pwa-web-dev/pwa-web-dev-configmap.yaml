@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pwa-web-dev-configmap
+  namespace: designhub
+data:
+  DOMAIN: "dh.dev.michaels.com"
+  REDIRECT_URI: "https://dh.dev.michaels.com/api/authorize"
+  CHECKSTORE_TIMEOUT: "30000"
+  #STORE_REQUEST_URL: "https://intraprod.corp.michaels.com/cgi-bin/storenumber"
+  REACT_APP_STORE_REQUEST_URL: "https://storemapi-dev.dh.michaels.com/api/storeNumber"
+  DEMANDWARE_URL: "https://storefront:mik123@test.michaelscustomframing.com/on/demandware.store/Sites-Artistree-Site/en_US/ImageUploadApi?client_id=0426981f-5f77-4d24-8a46-4bb3077b3030"
+  #DEMANDWARE_URL: "https://storefront:desgnFrm0524@test.michaelscustomframing.com/on/demandware.store/Sites-Artistree-Site/en_US/ImageUploadApi?client_id=0426981f-5f77-4d24-8a46-4bb3077b3030"
+  DEMANDWARE_URL_IMAGE_UPLOAD: "https://customframeapi.michaels.com/ImageUploadApi?client_id=0426981f-5f77-4d24-8a46-4bb3077b3030"
+  DEMANDWARE_URL_DEV: "https://storefront:ocf123@test.michaelscustomframing.com/on/demandware.store/Sites-Artistree-Site/en_US/ImageUploadApi?client_id=0426981f-5f77-4d24-8a46-4bb3077b3030"
+  IFR_URL_IMAGE_UPLOAD: "http://ifr-api-internal-uat.gcp.michaels.com/api/customframing"
+  PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDAzXnhTMOd0zTIJjzie7RIszLK1xoC0kmoXxzQpTcikdYXkVXGT5qyfRZ4f0xfSVFViBki8OfelNEHMS4MzjsTPXzHjlrWo/LBCWhHW8tzgloWLGezokl/+l8E3JzAmi8/E9pgY2z8jaIHdVSBOxGBp2cFXL7NKFpfJs6HDjgxKr/6HPm0+rfPgZa/8W15WyB6A7qjIE3MXnqLiCo4t+u4o6tYptVgAzAXq/J5rwIcgCQBDTrEI9EixC0l2v9vPDLm28tFpXgMbJVScrvgd7f7eB3y1DRqBurpCQhhpRF04JnFgsKxpRbzfylguwFuHcX8E1blfpvv5sjiUfEItIE7AgMBAAECggEBAIS57zmGWvP/Pcq7aBaSCl4x3rl8ss9WbJaYQ4Hu+rG1q6i1yFKo4loVeq6hE7ZVBsTW2FcReM3lrLBCzuzJ3Ck2nvvRp/8zBh6Vl0/ohXqTNekl0I39HpQXi+oQ5WhBvFy0EhVg3NpPtkdkIjSEsVyMHYO3gTJCoVP3px2aUFynWxoE2cEZdU0cBA6FE6k8xiwFEOc3exUuhQDIsAUzY/BqJEOA2IndZAdq7pNgDz08fK8Y0kwVWJRtXyqCXZr0MbuUxOVLuvF1f8J1kBfih5BYQAu/wOC+y7IVgNQWdcwy6EeyUIOXgTaVReeQp1oXEeihJiZ7gNmJZNXRahObMoECgYEA6UXFRWvQ0y45QtLqLK12W68019R+H9MqVzxfwGac3i88To+oUQJ467pkuqG4EPaQ9Fs0Epve3ijcIGztyD3r/8N0MdnckgtIsNDlbkINO3W+26LUDEZCSP9QK9TvQvPsFmsCR5GbbBsWzJdtgNT0GK2meJJdeqAY4xAH+WITE/ECgYEA05ZQjlNEr0cCRzN/CSciH0flWc5htPjDaXhArARtqeXWR3DJhOrdGbwW8/GTGwRSUODxXeBGvQm3GC9fsuggtrEQwfgMiMfrHtCkx7iAr/AD1t1b5Qte4Q0Zmj4Xdhs5FAJ9nrQLi/FcPUz/yzXq5Z6S6mbSMY6SU8U5sbcrY+sCgYBxw/8zniNX+uEeP/LJG0fv6wDgideA+eFabi1cji7PBUZqIhG6gHQsstjRVHGKhFWpdplswevteQvyHG3TDK/+KnqOnWu/JhWrdhWOslP1vbT5NO4pllJZe3rEBbMyefeX71RLRy3/iS6TVP6oqDLrnjTj9K32UgIRKw5Yh4Y6YQKBgB9miWH13ZWdlir2631yP1AhHVpslHeFC4sVe5OLvLKgF2LWzDFboaB2F3nwegJia8zw9SEXbagUTwXZ0fv9Ew3JzVDb/RA3ix8xm6LAMOjrV8aFZ2Pggh4oEYqgeF7gv2HG1Nm+opAMK8I1MSj5QXj+RZNf2wXbwL+J33wOUPQtAoGBAMs/DJduNLW4EACINOBxxsi5EGvkCENYU9EbrN1upHu90uQBgXnthTFDknFlBibdANvq3QhpxnVvl4qsoLd3NH8wU9sD2H8TBirk97QwN3pdEfCFxaVeZvWgFIHgeS9hcbQtY7Wr5khdpbRp31niZIVNSb6LWOb7wy7b7hD9ZmLz\n-----END PRIVATE KEY-----"
+  PUBLIC_KEY: "-----BEGIN CERTIFICATE-----\n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\n-----END CERTIFICATE-----"
+  REDIRECT_HOME_URL: "/home"  
+  COOKIE_TIMEOUT: "900000"
+  ISAM_AUTH_CODE_URL: "https://signontst.michaels.com/mga/sps/oauth/oauth20/authorize"
+  ISAM_TOKEN_URL: "https://signontst.michaels.com/mga/sps/oauth/oauth20/token"
+  ISAM_USER_INFO_URL: "https://signontst.michaels.com/mga/sps/oauth/oauth20/userinfo"
+  ISAM_CLIENT_ID: "Qf4x3gc4x7UmQphuyXhq"
+  ISAM_CLIENT_SECRET: "Bh6z2n9cGGJHspGeQOf9"
+  SSO_PROVIDER: "secondary"
+  CHECK_IBM_SSO_STATUS: "true"
+  SSO_VALIDATION_STATUS_URL: "https://designhub-sso-validation-jbowuzgrvq-uc.a.run.app/api/ibm/sso/status"
+  SAAS_REDIRECT_URI: "https://dh.dev.michaels.com/api/saasauthorize"
+  SAAS_AUTH_CODE_URL: "https://michaels-test.verify.ibm.com/oauth2/authorize"
+  SAAS_TOKEN_URL: "https://michaels-test.verify.ibm.com/oauth2/token"
+  UPS_TRACKING_URL: "https://www.ups.com/track?track=yes&trackNums="
+  PUROLATOR_TRACKING_URL: "https://www.purolator.com/en/shipping/tracker?pin="
+  SAAS_USER_INFO_URL: "https://michaels-test.verify.ibm.com/oauth2/userinfo"
+  SAAS_CLIENT_ID: "5e64852c-ead3-492f-89a0-519430a2aeac"
+  SAAS_CLIENT_SECRET: "ByUETwIqen"
+  ISAM_LOGOUT_URL: "https://signontst.michaels.com/pkmslogout?filename=dhlogout.html"
+  SAAS_LOGOUT_URL: "https://michaels-test.verify.ibm.com/saml/sps/saml20ip/saml20/sloinitial"
