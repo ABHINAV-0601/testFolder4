@@ -1,0 +1,20 @@
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"80":"pwa-web-multi-backend-config"}}'
+  name: pwa-multi-svc
+  namespace: designhub
+spec:
+  template:
+    spec:
+      selector:
+        app: pwa-web-prod-central
+      ports:
+      - name: api
+        protocol: TCP
+        port: 80
+        targetPort: 8089
+  clusters:
+  - link: "us-central1/dh-prod-central-cluster"
+  - link: "us-east1/dh-prod-east-cluster"

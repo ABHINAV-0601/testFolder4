@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 91
+  labels:
+    app_env: dev
+    app_name: pwa-web-dev
+    app_project: pwa-web
+    deploy_type: dep
+    lob: artistree
+    env: dev
+    product-line: 2c
+    state: active
+    workstream: design-hub
+  name: pwa-web-dev
+  namespace: designhub
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pwa-web-dev
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pwa-web-dev
+    spec:
+      containers:
+      - env:
+        - name: APP_SERVER_ENV
+          value: dev
+        - name: REACT_APP_STORE_REQUEST_URL
+          valueFrom:
+           configMapKeyRef:
+            name: pwa-web-dev-configmap
+            key: REACT_APP_STORE_REQUEST_URL
+        image: us-central1-docker.pkg.dev/prj-c-dh-infra-cicd-5ufa/jfrog/dh-app-virtual/designhub-pwa:2025.01.23-1051-beta-b10dec9
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: pwa-web-dev-configmap
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 180
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        name: pwa-dev
+        ports:
+        - containerPort: 8089
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+          requests:
+            cpu: 300m
+            memory: 500Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: jfrog-pull
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsUser: 1000
+      terminationGracePeriodSeconds: 30

@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 91
+  labels:
+    app_env: stg
+    app_name: pwa-web-stg
+    app_project: pwa-web
+    deploy_type: dep
+    lob: artistree
+    env: stg
+    product-line: 2c
+    state: active
+    workstream: design-hub
+  name: pwa-web-stg
+  namespace: designhub
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pwa-web-stg
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pwa-web-stg
+    spec:
+      containers:
+      - env:
+        - name: APP_SERVER_ENV
+          value: stg
+        image: gcr.io/design-hub-stg/designhub-pwa:0.1.0-b10dec9
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: pwa-web-stg-configmap
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 180
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        name: pwa-stg
+        ports:
+        - containerPort: 8089
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+          requests:
+            cpu: 1000m
+            memory: 1Gi
+        terminationMessagePath: /stg/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: jfrog-pull
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsUser: 1000
+      terminationGracePeriodSeconds: 30

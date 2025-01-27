@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 91
+  labels:
+    app_env: prod-central
+    app_name: pwa-web-prod-central
+    app_project: pwa-web
+    deploy_type: dep
+  name: pwa-web-prod-central
+  namespace: designhub
+spec:
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pwa-web-prod-central
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pwa-web-prod-central
+    spec:
+      containers:
+      - env:
+        - name: APP_SERVER_ENV
+          value: production
+        image: gcr.io/design-hub-prod/designhub-pwa:0.1.0-95f07e6
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: pwa-web-prod-central-configmap
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 150
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        name: pwa-prod-central
+        ports:
+        - containerPort: 8089
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 150
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8089
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 2000m
+            memory: 512Mi
+        terminationMessagePath: /prod-central/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      hostAliases:
+      - hostnames:
+        - customframeapi.michaels.com
+        ip: 10.251.1.206
+      - hostnames:
+        - amsenterpriseue.michaels.com
+        ip: 10.251.64.103
+      imagePullSecrets:
+      - name: jfrog-pull
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsUser: 1000
+      terminationGracePeriodSeconds: 60
